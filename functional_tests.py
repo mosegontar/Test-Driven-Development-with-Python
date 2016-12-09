@@ -1,3 +1,5 @@
+#!/Users/Alexander/Codine/Practice/tdd/venv/bin/python
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
@@ -5,7 +7,7 @@ import unittest
 class NewVisitorTest(unittest.TestCase):
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
