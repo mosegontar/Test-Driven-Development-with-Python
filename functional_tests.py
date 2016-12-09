@@ -1,4 +1,3 @@
-#!/Users/Alexander/Codine/Practice/tdd/venv/bin/python
 import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
