@@ -1,15 +1,17 @@
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
+from lists.forms import ItemForm
 from lists.models import Item, List
 
 # Create your views here.
 def home_page(request):
     """Home page view function"""
 
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'form': ItemForm()})
 
 def view_list(request, list_id):
     """View list view function"""
+
     list_ = List.objects.get(id=list_id)
     error = None
 
@@ -25,6 +27,8 @@ def view_list(request, list_id):
                                          'error': error})
 
 def new_list(request):
+    """New list view function"""
+
     list_ = List.objects.create()
     item = Item.objects.create(text=request.POST['item_text'], list=list_)    
     try:

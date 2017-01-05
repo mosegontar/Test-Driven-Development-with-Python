@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from django.utils.html import escape
 from django.template.loader import render_to_string
 
+from lists.forms import ItemForm
 from lists.views import home_page
 from lists.models import Item, List
 
@@ -18,6 +19,10 @@ class HomePageTest(TestCase):
         response = home_page(request)
         expected_html = render_to_string('home.html')
         self.assertEqual(response.content.decode(), expected_html)
+
+    def test_home_page_uses_item_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], ItemForm)
 
 
 class ListViewTest(TestCase):
