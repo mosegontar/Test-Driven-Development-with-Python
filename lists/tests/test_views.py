@@ -111,7 +111,6 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'list.html')
         self.assertEqual(Item.objects.all().count(), 1)
 
-
 class NewListTest(TestCase):
 
     def test_saving_a_POST_request(self):
