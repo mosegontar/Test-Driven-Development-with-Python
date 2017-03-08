@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import uuid
 
 
 class Migration(migrations.Migration):
@@ -14,9 +15,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Token',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, verbose_name='ID', serialize=False)),
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('email', models.EmailField(max_length=254)),
-                ('uid', models.CharField(max_length=40)),
+                ('uid', models.CharField(default=uuid.uuid4, max_length=40)),
             ],
         ),
     ]

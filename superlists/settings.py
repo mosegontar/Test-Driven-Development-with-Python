@@ -42,6 +42,17 @@ INSTALLED_APPS = (
 )
 
 AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.PasswordlessAuthenticationBackend',
+]
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'gershwinvogel@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('TDD_EMAIL_PASS')
+EMAIL_PORT= 587
+EMAIL_USE_TLS = True
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
