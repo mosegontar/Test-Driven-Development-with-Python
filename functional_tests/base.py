@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 
@@ -6,6 +7,9 @@ from selenium.common.exceptions import WebDriverException
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 MAX_WAIT = 10
+PATH_TO_DRIVER  = os.environ.get("PATH_TO_DRIVER")
+
+
 class FunctionalTest(StaticLiveServerTestCase):
 
     @classmethod
@@ -23,7 +27,8 @@ class FunctionalTest(StaticLiveServerTestCase):
             super().tearDownClass()
 
     def setUp(self):
-        self.browser = webdriver.Chrome()
+
+        self.browser = webdriver.Chrome(PATH_TO_DRIVER+'/chromedriver')
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -46,3 +51,17 @@ class FunctionalTest(StaticLiveServerTestCase):
                 if time.time() - start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.5)
+
+    def wait_to_be_logged_in(self, email):
+        self.wait_for(
+            lambda: self.browser.find_element_by_link_text('Log out')
+        )
+        navbar = self.browser.find_element_by_css_selector('.navbar')
+        self.assertIn(email, navbar.text)
+
+    def wait_to_be_logged_out(self, email):
+        self.wait_for(
+            lambda: self.browser.find_element_by_name('email')
+        )
+        navbar = self.browser.find_element_by_css_selector('.navbar')
+        self.assertNotIn(email, navbar.text)

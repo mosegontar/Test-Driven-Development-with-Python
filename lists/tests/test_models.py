@@ -1,6 +1,17 @@
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from lists.models import Item, List
+
+
+User = get_user_model()
+
+
+class UserModelTest(TestCase):
+
+    def test_user_is_valid_with_email_only(self):
+        user = User(email='a@b.com')
+        user.full_clean()  # should not raise
 
 
 class ItemModelTest(TestCase):
@@ -47,7 +58,7 @@ class ItemModelTest(TestCase):
         list2 = List.objects.create()
         Item.objects.create(list=list1, text='bla')
         item = Item(list=list2, text='bla')
-        item.full_clean() # should not raise error    
+        item.full_clean() # should not raise error
 
 class ListModelTest(TestCase):
 
@@ -58,4 +69,3 @@ class ListModelTest(TestCase):
 
 
 
-        
